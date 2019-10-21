@@ -620,6 +620,12 @@ declare namespace Bull {
     getJob(jobId: JobId): Promise<Job<T> | null>;
 
     /**
+     * Returns a promise that will return the next job instances in the queue.
+     * If there are no jobs, the promise callback parameter will be set to null.
+     */
+    getNextJob(): Promise<Job<T> | null>;
+
+    /**
      * Returns a promise that will return an array with the waiting jobs between start and end.
      */
     getWaiting(start?: number, end?: number): Promise<Array<Job<T>>>;

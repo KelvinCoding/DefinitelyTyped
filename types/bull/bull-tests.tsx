@@ -231,3 +231,16 @@ new Queue('profile');
 new Queue('profile', 'url');
 new Queue('profile', { prefix: 'test' });
 new Queue('profile', 'url', { prefix: 'test' });
+
+// test pull-style queue
+const pullQueue = new Queue('pull');
+pullQueue.add({foo: 'bar'})
+.then((createdJob) => {
+    return pullQueue.getNextJob()
+    .then((nextJob) => {
+        if (nextJob && createdJob.id === nextJob.id) {
+            return true;
+        }
+        throw new Error('createdJob and nextJob not the same id');
+    });
+});
